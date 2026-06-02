@@ -11,3 +11,10 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat ignition deploy ./ignition/modules/Lock.js
 ```
+
+## Deployed Contracts (Sepolia Testnet)
+
+| Contract            | Address                                    |
+| ------------------- | ------------------------------------------ |
+| IssuerRegistry      | 0xb793E8e856D3a2f11de5981FfB604aD11dC7775c |
+| CivicPassCredential | 0x286e62cDEE1778f663804E8DE4042b0f03482248 |
