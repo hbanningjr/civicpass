@@ -1,5 +1,7 @@
 # 🗳️ CivicPass
 
+### 🌐 Live Demo: [willowy-concha-f67057.netlify.app](https://willowy-concha-f67057.netlify.app/)
+
 ### Blockchain Credential Verification Prototype
 
 CivicPass is a privacy-preserving voter eligibility verification system built on Ethereum. Instead of relying solely on physical documents at check-in, eligible voters receive a portable digital credential tied to their MetaMask wallet. Poll workers can instantly verify eligibility without exposing personal identity data on-chain.
