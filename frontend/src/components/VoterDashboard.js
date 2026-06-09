@@ -10,11 +10,13 @@ function VoterDashboard({ account }) {
 
   const checkCredential = async () => {
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
+      const provider = new ethers.JsonRpcProvider(
+        "https://sepolia.infura.io/v3/1cac9a9396464ebaa5b4ef91257c7704",
+      );
       const contract = new ethers.Contract(
         config.civicPassCredential,
         CivicPassCredential.abi,
-        provider
+        provider,
       );
 
       const result = await contract.verifyCredential(account, electionId);
@@ -45,44 +47,44 @@ function VoterDashboard({ account }) {
 
       <label>Election ID</label>
       <input
-        type="number"
-        placeholder="Enter Election ID (e.g. 1)"
+        type='number'
+        placeholder='Enter Election ID (e.g. 1)'
         value={electionId}
         onChange={(e) => setElectionId(e.target.value)}
       />
 
       <button onClick={checkCredential}>Check My Credential</button>
 
-      {message && <p className="error">{message}</p>}
+      {message && <p className='error'>{message}</p>}
 
       {status && (
-        <div className="status-box">
+        <div className='status-box'>
           <h3>Credential Status</h3>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Credential Exists</span>
             <span className={status.exists ? "valid" : "invalid"}>
               {status.exists ? "✅ Yes" : "❌ No"}
             </span>
           </div>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Valid</span>
             <span className={status.valid ? "valid" : "invalid"}>
               {status.valid ? "✅ Yes" : "❌ No"}
             </span>
           </div>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Revoked</span>
             <span className={status.revoked ? "invalid" : "valid"}>
               {status.revoked ? "❌ Yes" : "✅ No"}
             </span>
           </div>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Used</span>
             <span className={status.used ? "invalid" : "valid"}>
               {status.used ? "❌ Yes" : "✅ No"}
             </span>
           </div>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Expired</span>
             <span className={status.expired ? "invalid" : "valid"}>
               {status.expired ? "❌ Yes" : "✅ No"}

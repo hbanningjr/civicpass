@@ -17,11 +17,13 @@ function VerifierDashboard({ account }) {
 
   const verifyCredential = async () => {
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum);
+      const provider = new ethers.JsonRpcProvider(
+        "https://sepolia.infura.io/v3/1cac9a9396464ebaa5b4ef91257c7704",
+      );
       const contract = new ethers.Contract(
         config.civicPassCredential,
         CivicPassCredential.abi,
-        provider
+        provider,
       );
 
       const result = await contract.verifyCredential(voterAddress, electionId);
@@ -47,15 +49,18 @@ function VerifierDashboard({ account }) {
       const contract = new ethers.Contract(
         config.civicPassCredential,
         CivicPassCredential.abi,
-        signer
+        signer,
       );
 
       const tx = await contract.markCredentialUsed(voterAddress, electionId);
-      showMessage("Transaction submitted! Waiting for confirmation...", "success");
+      showMessage(
+        "Transaction submitted! Waiting for confirmation...",
+        "success",
+      );
       await tx.wait();
       showMessage(
         `✅ Credential marked as used. Voter has checked in successfully.`,
-        "success"
+        "success",
       );
 
       // Refresh status
@@ -74,15 +79,15 @@ function VerifierDashboard({ account }) {
 
       <label>Voter Wallet Address</label>
       <input
-        placeholder="0x..."
+        placeholder='0x...'
         value={voterAddress}
         onChange={(e) => setVoterAddress(e.target.value)}
       />
 
       <label>Election ID</label>
       <input
-        type="number"
-        placeholder="e.g. 1"
+        type='number'
+        placeholder='e.g. 1'
         value={electionId}
         onChange={(e) => setElectionId(e.target.value)}
       />
@@ -90,33 +95,33 @@ function VerifierDashboard({ account }) {
       <button onClick={verifyCredential}>Verify Credential</button>
 
       {status && (
-        <div className="status-box" style={{ marginTop: "20px" }}>
+        <div className='status-box' style={{ marginTop: "20px" }}>
           <h3>Verification Result</h3>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Credential Exists</span>
             <span className={status.exists ? "valid" : "invalid"}>
               {status.exists ? "✅ Yes" : "❌ No"}
             </span>
           </div>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Valid</span>
             <span className={status.valid ? "valid" : "invalid"}>
               {status.valid ? "✅ Yes" : "❌ No"}
             </span>
           </div>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Revoked</span>
             <span className={status.revoked ? "invalid" : "valid"}>
               {status.revoked ? "❌ Yes" : "✅ No"}
             </span>
           </div>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Already Used</span>
             <span className={status.used ? "invalid" : "valid"}>
               {status.used ? "❌ Yes" : "✅ No"}
             </span>
           </div>
-          <div className="status-row">
+          <div className='status-row'>
             <span>Expired</span>
             <span className={status.expired ? "invalid" : "valid"}>
               {status.expired ? "❌ Yes" : "✅ No"}
@@ -125,7 +130,7 @@ function VerifierDashboard({ account }) {
 
           {status.valid && (
             <div style={{ marginTop: "16px" }}>
-              <p className="success">
+              <p className='success'>
                 ✅ Credential is valid! Voter is cleared to proceed.
               </p>
               <button
@@ -138,13 +143,13 @@ function VerifierDashboard({ account }) {
           )}
 
           {!status.valid && status.exists && (
-            <p className="error" style={{ marginTop: "16px" }}>
+            <p className='error' style={{ marginTop: "16px" }}>
               ❌ Credential is not valid. Voter cannot be checked in.
             </p>
           )}
 
           {!status.exists && (
-            <p className="error" style={{ marginTop: "16px" }}>
+            <p className='error' style={{ marginTop: "16px" }}>
               ❌ No credential found for this wallet and election ID.
             </p>
           )}
