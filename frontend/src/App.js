@@ -1,75 +1,43 @@
 import { useState } from "react";
-import IssuerDashboard from "./components/IssuerDashboard";
-import VoterDashboard from "./components/VoterDashboard";
-import VerifierDashboard from "./components/VerifierDashboard";
+import LandingPage from "./components/LandingPage";
+import AdminPortal from "./components/AdminPortal";
+import IssuerPortal from "./components/IssuerPortal";
+import VerifierPortal from "./components/VerifierPortal";
 import "./App.css";
 
 function App() {
+  const [role, setRole] = useState(null);
   const [account, setAccount] = useState(null);
-  const [activeTab, setActiveTab] = useState("voter");
 
-  const connectWallet = async () => {
+  const connectWallet = async (selectedRole) => {
     if (window.ethereum) {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
       setAccount(accounts[0]);
+      setRole(selectedRole);
     } else {
       alert("Please install MetaMask!");
     }
   };
 
+  const handleExit = () => {
+    setRole(null);
+    setAccount(null);
+  };
+
   return (
     <div className='App'>
-      <header>
-        <h1>🗳️ CivicPass</h1>
-        <p>Blockchain Credential Verification</p>
-        {account ? (
-          <p className='account'>
-            Connected: {account.slice(0, 6)}...{account.slice(-4)}
-          </p>
-        ) : (
-          <button onClick={connectWallet}>Connect Wallet</button>
-        )}
-      </header>
-
-      <nav>
-        <button
-          className={activeTab === "issuer" ? "active" : ""}
-          onClick={() => setActiveTab("issuer")}
-        >
-          Issuer Dashboard
-        </button>
-        <button
-          className={activeTab === "voter" ? "active" : ""}
-          onClick={() => setActiveTab("voter")}
-        >
-          Voter Dashboard
-        </button>
-        <button
-          className={activeTab === "verifier" ? "active" : ""}
-          onClick={() => setActiveTab("verifier")}
-        >
-          Verifier Dashboard
-        </button>
-      </nav>
-
-      <main>
-        {!account ? (
-          <div className='connect-prompt'>
-            <h2>Please connect your wallet to continue</h2>
-            <button onClick={connectWallet}>Connect MetaMask</button>
-          </div>
-        ) : (
-          <>
-            {activeTab === "issuer" && <IssuerDashboard account={account} />}
-            {activeTab === "voter" && <VoterDashboard account={account} />}
-            {activeTab === "verifier" && (
-              <VerifierDashboard account={account} />
-            )}
-          </>
-        )}
-      </main>
+      {!role && <LandingPage onSelectRole={connectWallet} />}
+      {role === "admin" && (
+        <AdminPortal account={account} onExit={handleExit} />
+      )}
+      {role === "issuer" && (
+        <IssuerPortal account={account} onExit={handleExit} />
+      )}
+      {role === "verifier" && (
+        <VerifierPortal account={account} onExit={handleExit} />
+      )}
     </div>
   );
 }

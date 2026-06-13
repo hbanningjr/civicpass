@@ -1,164 +1,70 @@
-# 🗳️ CivicPass
+# Getting Started with Create React App
 
-### 🌐 Live Demo: [willowy-concha-f67057.netlify.app](https://willowy-concha-f67057.netlify.app/)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Blockchain Credential Verification Prototype
+## Available Scripts
 
-CivicPass is a privacy-preserving voter eligibility verification system built on Ethereum. Instead of relying solely on physical documents at check-in, eligible voters receive a portable digital credential tied to their MetaMask wallet. Poll workers can instantly verify eligibility without exposing personal identity data on-chain.
+In the project directory, you can run:
 
----
+### `npm start`
 
-## 🏗️ Architecture
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-CivicPass is built across three layers:
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### Smart Contracts (Solidity + Hardhat)
+### `npm test`
 
-- **IssuerRegistry** — manages trusted issuer authorization using OpenZeppelin Ownable
-- **CivicPassCredential** — handles credential lifecycle: issuance, revocation, expiration, and one-time participation tracking
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Test Suite (Hardhat + Chai)
+### `npm run build`
 
-- 10 passing tests covering issuer authorization, credential issuance, revocation, expiration, and duplicate participation prevention
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Frontend (React + ethers.js)
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-- **Issuer Dashboard** — issue and revoke credentials, authorize new issuers
-- **Voter Dashboard** — check credential validity and status
-- **Verifier Dashboard** — verify credentials and check voters in at the polling place
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
----
+### `npm run eject`
 
-## 🚀 Deployed Contracts (Sepolia Testnet)
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-| Contract            | Address                                    |
-| ------------------- | ------------------------------------------ |
-| IssuerRegistry      | 0xb793E8e856D3a2f11de5981FfB604aD11dC7775c |
-| CivicPassCredential | 0x286e62cDEE1778f663804E8DE4042b0f03482248 |
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-🔍 Verify on Etherscan:
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-- [IssuerRegistry](https://sepolia.etherscan.io/address/0xb793E8e856D3a2f11de5981FfB604aD11dC7775c)
-- [CivicPassCredential](https://sepolia.etherscan.io/address/0x286e62cDEE1778f663804E8DE4042b0f03482248)
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
----
+## Learn More
 
-## 🔄 How CivicPass Works
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-### The Voter Journey
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-1. **Before Election Day** — A trusted issuer verifies the voter's eligibility off-chain and issues a digital credential to their wallet address
-2. **At the Polling Place** — The voter connects their MetaMask wallet
-3. **Check-In** — A poll worker (verifier) confirms the credential is valid, unexpired, not revoked, and unused
-4. **Marked Used** — The credential is marked as used on-chain, preventing double voting
-5. **Voter Proceeds** — The voter goes to the regular voting booth as normal
+### Code Splitting
 
-### Credential Validation Checks
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-- ✅ Issued by an authorized issuer
-- ✅ Not revoked
-- ✅ Not expired
-- ✅ Not already used for this election
+### Analyzing the Bundle Size
 
----
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-## 🛠️ Technology Stack
+### Making a Progressive Web App
 
-| Technology       | Purpose                                       |
-| ---------------- | --------------------------------------------- |
-| Solidity         | Smart contract development                    |
-| Hardhat          | Local blockchain, testing, deployment         |
-| Chai + Mocha     | Smart contract testing                        |
-| OpenZeppelin     | Secure access control (Ownable)               |
-| React            | Frontend application                          |
-| ethers.js        | Frontend-to-blockchain communication          |
-| MetaMask         | Wallet authentication and transaction signing |
-| Ethereum Sepolia | Public testnet deployment                     |
-| Netlify          | Frontend hosting                              |
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
----
+### Advanced Configuration
 
-## ⚙️ Local Development Setup
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Prerequisites
+### Deployment
 
-- Node.js v22.13+
-- MetaMask browser extension
-- Git
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### Installation
+### `npm run build` fails to minify
 
-```bash
-git clone https://github.com/hbanningjr/civicpass.git
-cd civicpass
-npm install
-cd frontend
-npm install
-```
-
-### Run Locally
-
-**Terminal 1 — Start local blockchain:**
-
-```bash
-cd civicpass
-npx hardhat node
-```
-
-**Terminal 2 — Deploy contracts:**
-
-```bash
-cd civicpass
-npx hardhat ignition deploy ignition/modules/CivicPass.js --network localhost
-```
-
-**Terminal 3 — Start frontend:**
-
-```bash
-cd civicpass/frontend
-npm start
-```
-
-Then update `frontend/src/contracts/config.json` with the new local contract addresses and set MetaMask to `localhost:8545` Chain ID `31337`.
-
-### Run Tests
-
-```bash
-cd civicpass
-npx hardhat test
-```
-
----
-
-## 🔒 Security Design
-
-- Sensitive identity data is never stored on-chain
-- The blockchain acts as a tamper-resistant trust ledger only
-- Issuer authorization is strictly controlled by the contract owner
-- One-time participation tracking prevents double voting
-- Credential revocation is available at any time by an authorized issuer
-
----
-
-## 🗺️ Future Roadmap
-
-| Feature                     | Description                                                    |
-| --------------------------- | -------------------------------------------------------------- |
-| QR-Based Credential Cards   | Printable credentials for users with limited smartphone access |
-| Mobile Verification Units   | Portable issuer workflows for remote verification              |
-| Biometric Wallet Unlocking  | Device-level fingerprint or facial authentication              |
-| Additional Credential Types | Education, permits, certifications, professional licenses      |
-| Multi-Jurisdiction Support  | Verification across multiple organizations or regions          |
-| Advanced Privacy Features   | Zero-knowledge proof integration                               |
-
----
-
-## 👨‍💻 Author
-
-**Harv Banning**
-Dapp University Blockchain Developer Bootcamp — Capstone Project
-[GitHub](https://github.com/hbanningjr/civicpass)
-
----
-
-_CivicPass V1 is a prototype built for educational purposes as part of a blockchain developer bootcamp capstone project._
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
