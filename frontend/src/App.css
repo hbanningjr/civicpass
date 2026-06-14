@@ -39,9 +39,17 @@ body {
   letter-spacing: -1px;
 }
 
-.landing-header p {
+.landing-header p:first-of-type {
   font-size: 1.3rem;
-  opacity: 0.85;
+  opacity: 0.75;
+  margin-bottom: 40px;
+}
+
+.landing-header p:last-of-type {
+  font-size: 1.8rem;
+  font-weight: 800;
+  opacity: 1;
+  margin-bottom: 0;
 }
 
 .role-cards {
@@ -61,6 +69,9 @@ body {
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .role-card:hover {

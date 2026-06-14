@@ -1,6 +1,6 @@
 # 🗳️ CivicPass
 
-### 🌐 Live Demo: [fanciful-praline-634f7c.netlify.app](https://fanciful-praline-634f7c.netlify.app/)
+### 🌐 Live Demo: [frabjous-otter-59a23a.netlify.app](https://frabjous-otter-59a23a.netlify.app/)
 
 ### Blockchain Credential Verification Prototype
 
